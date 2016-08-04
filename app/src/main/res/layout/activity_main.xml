@@ -14,9 +14,10 @@
         android:id="@+id/tv_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello Ni Hao."
+        android:text="对齐这里"
+        android:layout_marginTop="102dp"
+        android:layout_marginEnd="28dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="168dp"/>
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

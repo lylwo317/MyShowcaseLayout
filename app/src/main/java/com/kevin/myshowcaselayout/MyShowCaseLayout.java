@@ -12,16 +12,26 @@ import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 /**
+ * 引导页面
  * Created by XieJiaHua on 2016/8/1.
  */
 public class MyShowCaseLayout extends RelativeLayout
 {
 
+    /**
+     * 指示器View，也就是要对齐到目标View的View
+     */
     private View indicatorView;
 
+    /**
+     * 需要对齐的View
+     */
     private View targetView;
 
-    private View needChangeView;
+    /**
+     * 需要移动的View
+     */
+    private View needMoveView;
 
     private NotifyReady notifyReady;
 
@@ -30,9 +40,15 @@ public class MyShowCaseLayout extends RelativeLayout
     private int indicatorLayoutResId=0;
     private int indicatorResId = 0;
 
-    private int needChangeResId = 0;
+    private int needMoveResId = 0;
 
+    /**
+     * 指示器所在的布局
+     */
     private ViewGroup indicatorLayout;
+    /**
+     * 是否要一直监听目标View的位置变化。主要是有些界面目标View的位置可能会改变，一直监听者，可以跟随目标移动
+     */
     private boolean alwaysTraceTargetPosition = false;
 
     public MyShowCaseLayout(Context context)
@@ -52,12 +68,12 @@ public class MyShowCaseLayout extends RelativeLayout
         super(context, attrs, defStyleAttr);
     }
 
-    public void setNeedChangeResId(int needChangeResId)
+    public void setNeedMoveResId(int needMoveResId)
     {
-        this.needChangeResId = needChangeResId;
+        this.needMoveResId = needMoveResId;
     }
 
-    public void addTargetView(final View targetView)
+    public void setTargetView(final View targetView)
     {
         this.targetView = targetView;
         notifyReady.setTargetView(targetView);
@@ -72,7 +88,7 @@ public class MyShowCaseLayout extends RelativeLayout
             @Override
             public void onGlobalLayout()
             {
-                if (view.getWidth() != 0)//只有当宽不为0时，位置才有意义
+                if (view.getWidth() != 0)//只有当宽不为0时，所获取的屏幕位置才准确。
                 {
                     if (!alwaysTraceTargetPosition)
                     {
@@ -147,10 +163,10 @@ public class MyShowCaseLayout extends RelativeLayout
                 }
             });
             notifyReady.setIndicatorView(indicatorView);
-            if (needChangeResId != 0)
+            if (needMoveResId != 0)
             {
-                needChangeView = indicatorLayout.findViewById(needChangeResId);
-                notifyReady.setNeedChangeView(needChangeView);
+                needMoveView = indicatorLayout.findViewById(needMoveResId);
+                notifyReady.setNeedChangeView(needMoveView);
             }else
             {
                 notifyReady.setNeedChangeView(indicatorLayout);
@@ -205,7 +221,8 @@ public class MyShowCaseLayout extends RelativeLayout
                 float x = targetLocations[0]%displayMetrics.widthPixels-indicatorLocations[0]%displayMetrics.widthPixels + (targetView.getWidth() - indicatorView.getWidth()) / 2f;
                 float y = targetLocations[1] - indicatorLocations[1] + (targetView.getHeight() - indicatorView.getHeight()) / 2f;
 
-                if (x == oldX && y == oldY)//剔除无意义的移动
+                //避免无意义的移动
+                if (x == oldX && y == oldY)
                 {
                     return;
                 }else
@@ -247,7 +264,7 @@ public class MyShowCaseLayout extends RelativeLayout
 
         public Builder addTargetView(View targetView)
         {
-            myShowCaseLayout.addTargetView(targetView);
+            myShowCaseLayout.setTargetView(targetView);
             return this;
         }
 
@@ -271,7 +288,7 @@ public class MyShowCaseLayout extends RelativeLayout
 
         public Builder setNeedChangePositionViewResId(int resId)
         {
-            myShowCaseLayout.setNeedChangeResId(resId);
+            myShowCaseLayout.setNeedMoveResId(resId);
             return this;
         }
 
