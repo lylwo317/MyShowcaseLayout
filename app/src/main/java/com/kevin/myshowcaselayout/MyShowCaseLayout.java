@@ -24,7 +24,7 @@ public class MyShowCaseLayout extends RelativeLayout
     private View indicatorView;
 
     /**
-     * 需要对齐的View
+     * 需要对齐到的目标
      */
     private View targetView;
 
@@ -166,19 +166,22 @@ public class MyShowCaseLayout extends RelativeLayout
             if (needMoveResId != 0)
             {
                 needMoveView = indicatorLayout.findViewById(needMoveResId);
-                notifyReady.setNeedChangeView(needMoveView);
+                notifyReady.setNeedMoveView(needMoveView);
             }else
             {
-                notifyReady.setNeedChangeView(indicatorLayout);
+                notifyReady.setNeedMoveView(indicatorLayout);
             }
         }
     }
 
+    /**
+     * 通知指示器View和目标View位置，使得该布局定位到
+     */
     private static class NotifyReady
     {
         private int[] indicatorLocations;
         private int[] targetLocations;
-        private View needChangeView;
+        private View needMoveView;
 
         private View targetView;
 
@@ -194,9 +197,9 @@ public class MyShowCaseLayout extends RelativeLayout
             this.targetView = targetView;
         }
 
-        public void setNeedChangeView(View needChangeView)
+        public void setNeedMoveView(View needChangeView)
         {
-            this.needChangeView = needChangeView;
+            this.needMoveView = needChangeView;
         }
 
         public NotifyReady(Context context)
@@ -216,7 +219,7 @@ public class MyShowCaseLayout extends RelativeLayout
 
         public void notifyReady()
         {
-            if (indicatorLocations != null && targetLocations != null && needChangeView != null && indicatorView != null && targetView != null)
+            if (indicatorLocations != null && targetLocations != null && needMoveView != null && indicatorView != null && targetView != null)
             {
                 float x = targetLocations[0]%displayMetrics.widthPixels-indicatorLocations[0]%displayMetrics.widthPixels + (targetView.getWidth() - indicatorView.getWidth()) / 2f;
                 float y = targetLocations[1] - indicatorLocations[1] + (targetView.getHeight() - indicatorView.getHeight()) / 2f;
@@ -230,8 +233,8 @@ public class MyShowCaseLayout extends RelativeLayout
                     oldX = x;
                     oldY = y;
                 }
-                needChangeView.setX(x);
-                needChangeView.setY(y);
+                needMoveView.setX(x);
+                needMoveView.setY(y);
             }
         }
 
@@ -257,6 +260,9 @@ public class MyShowCaseLayout extends RelativeLayout
         }
 
         public MyShowCaseLayout build() {
+
+
+
             myShowCaseLayout.listenIndicatorPositions();
             parent.addView(myShowCaseLayout, parentIndex);
             return myShowCaseLayout;
