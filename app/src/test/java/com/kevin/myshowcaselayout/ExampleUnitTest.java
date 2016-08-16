@@ -1,4 +1,4 @@
-package com.kevin.myshowcaselayout;
+package com.kevin.showcase;
 
 import org.junit.Test;
 
