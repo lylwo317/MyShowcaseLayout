@@ -3,6 +3,8 @@
 ShowCaseCoordinator will inflate layout,and move the needMoveView which contain the indicatorView,
 let the indicatorView right above the targetView.
 
+自动定位的引导页，可以将引导页上的某个View对齐到指定的TargetView上。具体使用可以看Demo
+
 
 ## Effect picture
 
