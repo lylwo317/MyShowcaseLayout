@@ -4,6 +4,22 @@ ShowCaseCoordinator will inflate layout,and move the needMoveView which contain 
 let the indicatorView right above the targetView.
 
 
+## Effect picture
+
+my_show_case_layout.xml
+
+<img src="https://github.com/lylwo317/MyShowcaseLayout/blob/master/screenshot/layout-2016-08-17-132455.png" width="400">
+
+MainActivity
+
+<img src="https://github.com/lylwo317/MyShowcaseLayout/blob/master/screenshot/layout-2016-08-17-132712.png" width="400">
+
+Use ShowCaseCoordinator in MainActivity
+
+<img src="https://github.com/lylwo317/MyShowcaseLayout/blob/master/screenshot/device-2016-08-17-134533.png" width="400">
+
+
+
 
 ## Usage
 
@@ -18,7 +34,7 @@ new ShowCaseCoordinator.Builder(this, R.layout.my_show_case_layout)
 
 ## ShowCaseLayout
 
-my_show_case_layout.xml
+
 
 ```
 <?xml version="1.0" encoding="utf-8"?>
@@ -95,14 +111,5 @@ my_show_case_layout.xml
 
 </LinearLayout>
 ```
-
-![截图](https://github.com/lylwo317/MyShowcaseLayout/blob/master/screenshot/layout-2016-08-17-132455.png)
-
-
-## Effect picture
-
-![截图](https://github.com/lylwo317/MyShowcaseLayout/blob/master/screenshot/device-2016-08-17-134533.png)
-
-![截图](https://github.com/lylwo317/MyShowcaseLayout/blob/master/screenshot/layout-2016-08-17-132712.png)
 
 
