@@ -105,7 +105,7 @@ public class ShowcaseCoordinator
         }
     }
 
-    private void setViewToDismissShowcase(int resId)
+    private void setViewToDismissShowcaseLayout(int resId)
     {
         this.dismissViewId = resId;
     }
@@ -337,6 +337,11 @@ public class ShowcaseCoordinator
 
         private int parentIndex;
 
+        /**
+         * ShowcaseCoordinator Builder.
+         * @param activity activity
+         * @param layoutResId showcaseLayout resource id
+         */
         public Builder(Activity activity,int layoutResId)
         {
             if (activity == null)
@@ -348,6 +353,10 @@ public class ShowcaseCoordinator
             parentIndex = parent.getChildCount();
         }
 
+        /**
+         * Build ShowcaseCoordinator
+         * @return showcaseCoordinator
+         */
         public ShowcaseCoordinator build()
         {
             showcaseCoordinator.onBuild();
@@ -355,12 +364,24 @@ public class ShowcaseCoordinator
             return showcaseCoordinator;
         }
 
-        public Builder addShowcaseList(List<Showcase> idRecordList)
+        /**
+         * Add Showcase by list
+         * @param showcaseList Showcase's list
+         * @return builder
+         */
+        public Builder addShowcaseList(List<Showcase> showcaseList)
         {
-            showcaseCoordinator.addShowcaseList(idRecordList);
+            showcaseCoordinator.addShowcaseList(showcaseList);
             return this;
         }
 
+        /**
+         * Add Showcase
+         * @param targetView which view that you want indicatorView align at.
+         * @param indicatorViewId which view you want to right above targetView.
+         * @param needMoveViewId which view you want to move actually.
+         * @return builder
+         */
         public Builder addShowcase(View targetView, int indicatorViewId, int needMoveViewId)
         {
 
@@ -368,18 +389,22 @@ public class ShowcaseCoordinator
             return this;
         }
 
-        public Builder addShowcase(Showcase showcase)
+        /**
+         * Set view to dismiss showcaseLayout.
+         * @param viewId which you want to dismiss showcaseLayout.
+         * @return builder
+         */
+        public Builder setViewToDismissShowcaseLayout(int viewId)
         {
-            showcaseCoordinator.addShowcase(showcase);
+            showcaseCoordinator.setViewToDismissShowcaseLayout(viewId);
             return this;
         }
 
-        public Builder setViewToDismissShowcase(int resId)
-        {
-            showcaseCoordinator.setViewToDismissShowcase(resId);
-            return this;
-        }
-
+        /**
+         * Listen ShowcaseLayout dismiss event.
+         * @param listener ShowcaseLayout dismiss listener.
+         * @return builder
+         */
         public Builder setOnDismissShowcaseLayoutListener(OnDismissShowcaseLayoutListener listener)
         {
             showcaseCoordinator.setOnDismissShowcaseLayoutListener(listener);
