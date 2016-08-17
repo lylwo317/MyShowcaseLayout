@@ -10,3 +10,10 @@ gen
 local.properties
 .gradle
 build
+.gradle/
+.idea/
+MyShowcaseLayout.iml
+app/app.iml
+app/libs/
+app/src/main/res/drawable/
+build/
