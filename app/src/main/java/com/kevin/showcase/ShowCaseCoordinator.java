@@ -14,26 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ShowCaseCoordinator will inflate {@link #showCaseLayout},and move the needMoveView which contain the indicatorView,
+ * ShowcaseCoordinator will inflate {@link #showcaseLayout},and move the needMoveView which contain the indicatorView,
  * let the indicatorView right above the targetView.
  * @author Kevin Xie (lylwo317@gmail.com)
  * @since 2016/8/1.
  */
-public class ShowCaseCoordinator
+public class ShowcaseCoordinator
 {
 
     private Context context;
 
     /**
-     * Special which view in {@link #showCaseLayout} to dismiss showcase. Default view is {@link #showCaseLayout}
+     * Special which view in {@link #showcaseLayout} to dismiss showcase. Default view is {@link #showcaseLayout}
      **/
     private int dismissViewId = 0;
 
-    private List<Showcase> showCaseList;
+    private List<Showcase> showcaseList;
 
-    private ViewGroup showCaseLayout;
+    private ViewGroup showcaseLayout;
 
-    private OnDismissShowCaseLayoutListener dismissShowCaseLayoutListener = null;
+    private OnDismissShowcaseLayoutListener dismissShowcaseLayoutListener = null;
 
     enum ViewType{
 
@@ -50,57 +50,57 @@ public class ShowCaseCoordinator
         }
     };
 
-    private void setOnDismissShowCaseLayoutListener(OnDismissShowCaseLayoutListener listener)
+    private void setOnDismissShowcaseLayoutListener(OnDismissShowcaseLayoutListener listener)
     {
-        dismissShowCaseLayoutListener = listener;
+        dismissShowcaseLayoutListener = listener;
     }
 
-    public ShowCaseCoordinator(Context context, int layoutResId)
+    public ShowcaseCoordinator(Context context, int layoutResId)
     {
         this.context = context;
         LayoutInflater inflater = LayoutInflater.from(this.context);
-        showCaseLayout  = (ViewGroup)inflater.inflate(layoutResId, null);
+        showcaseLayout = (ViewGroup)inflater.inflate(layoutResId, null);
     }
 
     /**
-     * Remove {@link #showCaseLayout} from it's parent
+     * Remove {@link #showcaseLayout} from it's parent
      */
     private void dismiss()
     {
-        if (dismissShowCaseLayoutListener != null)
+        if (dismissShowcaseLayoutListener != null)
         {
-            dismissShowCaseLayoutListener.onDismiss();
+            dismissShowcaseLayoutListener.onDismiss();
         }
-        ViewParent vp = showCaseLayout.getParent();
+        ViewParent vp = showcaseLayout.getParent();
         if (vp instanceof ViewGroup)
         {
-            ((ViewGroup)vp).removeView(showCaseLayout);
+            ((ViewGroup)vp).removeView(showcaseLayout);
         }
     }
 
     /**
-     * Get showCaseLayout
-     * @return return {@link #showCaseLayout}
+     * Get showcaseLayout
+     * @return return {@link #showcaseLayout}
      */
-    public ViewGroup getShowCaseLayout()
+    public ViewGroup getShowcaseLayout()
     {
-        return showCaseLayout;
+        return showcaseLayout;
     }
 
 
-    //////////////////////////////////////////////////dismiss showCaseLayout///////////////////////////////////////////////////
+    //////////////////////////////////////////////////dismiss showcaseLayout///////////////////////////////////////////////////
 
     private void bindDismissListenerToView()
     {
         if (dismissViewId == 0)
         {
-            showCaseLayout.setOnClickListener(dismissListener);
+            showcaseLayout.setOnClickListener(dismissListener);
         }else
         {
-            View dismissShowCaseLayoutView = showCaseLayout.findViewById(dismissViewId);
-            if (dismissShowCaseLayoutView != null)
+            View dismissShowcaseLayoutView = showcaseLayout.findViewById(dismissViewId);
+            if (dismissShowcaseLayoutView != null)
             {
-                dismissShowCaseLayoutView.setOnClickListener(dismissListener);
+                dismissShowcaseLayoutView.setOnClickListener(dismissListener);
             }
         }
     }
@@ -143,24 +143,24 @@ public class ShowCaseCoordinator
      */
     private void onBuild()
     {
-        bindShowCaseListener();
+        bindShowcaseListener();
         bindDismissListenerToView();
     }
 
     /**
      * Listen targetView and indicatorView locations.
      */
-    private void bindShowCaseListener()
+    private void bindShowcaseListener()
     {
-        if (showCaseList != null)
+        if (showcaseList != null)
         {
-            for (Showcase viewIdRecord : showCaseList)
+            for (Showcase viewIdRecord : showcaseList)
             {
                 NotifyReady ready = new NotifyReady(context);
 
-                View indicatorView = showCaseLayout.findViewById(viewIdRecord.getIndicatorViewId());
+                View indicatorView = showcaseLayout.findViewById(viewIdRecord.getIndicatorViewId());
                 View targetView = viewIdRecord.getTargetView();
-                View needMoveView = showCaseLayout.findViewById(viewIdRecord.getNeedMoveViewId());
+                View needMoveView = showcaseLayout.findViewById(viewIdRecord.getNeedMoveViewId());
 
                 if (indicatorView != null && targetView != null && needMoveView != null)
                 {
@@ -224,31 +224,31 @@ public class ShowCaseCoordinator
     }
 
     /**
-     * Add showcase list to {@link #showCaseList}
+     * Add showcase list to {@link #showcaseList}
      *
      * @param showcaseList showcase collections
      */
-    private void addShowCaseList(List<Showcase> showcaseList)
+    private void addShowcaseList(List<Showcase> showcaseList)
     {
-        if (showCaseList == null)
+        if (this.showcaseList == null)
         {
-            showCaseList = new ArrayList<>();
+            this.showcaseList = new ArrayList<>();
         }
-        this.showCaseList.addAll(showcaseList);
+        this.showcaseList.addAll(showcaseList);
     }
 
     /**
-     * Add showcase to {@link #showCaseList}
+     * Add showcase to {@link #showcaseList}
      *
      * @param showcase Showcase instance
      */
-    private void addShowCase(Showcase showcase)
+    private void addShowcase(Showcase showcase)
     {
-        if (showCaseList == null)
+        if (showcaseList == null)
         {
-            showCaseList = new ArrayList<>();
+            showcaseList = new ArrayList<>();
         }
-        this.showCaseList.add(showcase);
+        this.showcaseList.add(showcase);
     }
 
     //\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -328,10 +328,10 @@ public class ShowCaseCoordinator
     }
 
     /**
-     * To build {@link ShowCaseCoordinator} instance.
+     * To build {@link ShowcaseCoordinator} instance.
      */
     public static class Builder {
-        private ShowCaseCoordinator showCaseCoordinator;
+        private ShowcaseCoordinator showcaseCoordinator;
 
         private ViewGroup parent;
 
@@ -343,46 +343,46 @@ public class ShowCaseCoordinator
             {
                 throw new NullPointerException("Activity can not be Null!");
             }
-            showCaseCoordinator = new ShowCaseCoordinator(activity,layoutResId);
+            showcaseCoordinator = new ShowcaseCoordinator(activity,layoutResId);
             parent = (ViewGroup)(activity.getWindow().getDecorView().getRootView());
             parentIndex = parent.getChildCount();
         }
 
-        public ShowCaseCoordinator build()
+        public ShowcaseCoordinator build()
         {
-            showCaseCoordinator.onBuild();
-            parent.addView(showCaseCoordinator.getShowCaseLayout(), parentIndex);
-            return showCaseCoordinator;
+            showcaseCoordinator.onBuild();
+            parent.addView(showcaseCoordinator.getShowcaseLayout(), parentIndex);
+            return showcaseCoordinator;
         }
 
-        public Builder addShowCaseList(List<Showcase> idRecordList)
+        public Builder addShowcaseList(List<Showcase> idRecordList)
         {
-            showCaseCoordinator.addShowCaseList(idRecordList);
+            showcaseCoordinator.addShowcaseList(idRecordList);
             return this;
         }
 
-        public Builder addShowCase(View targetView, int indicatorViewId, int needMoveViewId)
+        public Builder addShowcase(View targetView, int indicatorViewId, int needMoveViewId)
         {
 
-            showCaseCoordinator.addShowCase(new Showcase(targetView, indicatorViewId, needMoveViewId));
+            showcaseCoordinator.addShowcase(new Showcase(targetView, indicatorViewId, needMoveViewId));
             return this;
         }
 
-        public Builder addShowCase(Showcase showcase)
+        public Builder addShowcase(Showcase showcase)
         {
-            showCaseCoordinator.addShowCase(showcase);
+            showcaseCoordinator.addShowcase(showcase);
             return this;
         }
 
         public Builder setViewToDismissShowcase(int resId)
         {
-            showCaseCoordinator.setViewToDismissShowcase(resId);
+            showcaseCoordinator.setViewToDismissShowcase(resId);
             return this;
         }
 
-        public Builder setOnDismissShowCaseLayoutListener(OnDismissShowCaseLayoutListener listener)
+        public Builder setOnDismissShowcaseLayoutListener(OnDismissShowcaseLayoutListener listener)
         {
-            showCaseCoordinator.setOnDismissShowCaseLayoutListener(listener);
+            showcaseCoordinator.setOnDismissShowcaseLayoutListener(listener);
             return this;
         }
     }
@@ -426,9 +426,9 @@ public class ShowCaseCoordinator
     }
 
     /**
-     * Listen showCaseLayout dismiss event.
+     * Listen showcaseLayout dismiss event.
      */
-    public interface OnDismissShowCaseLayoutListener
+    public interface OnDismissShowcaseLayoutListener
     {
         void onDismiss();
     }
